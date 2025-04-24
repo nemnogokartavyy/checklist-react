@@ -1,22 +1,17 @@
 import React, { useState } from "react";
 import ChecklistItem from "./ChecklistItem";
+import styles from './Checklist.module.css';
 
 function Checklist() {
 
     const checklist = [
-        { id: 1, text: 'Текст задачи чеклиста - 1', edit: false, done: false },
-        { id: 2, text: 'Текст задачи чеклиста - 2', edit: false, done: false },
-        { id: 3, text: 'Текст задачи чеклиста - 3', edit: false, done: false },
-        { id: 4, text: 'Текст задачи чеклиста - 4', edit: false, done: false },
-        { id: 5, text: 'Текст задачи чеклиста - 5', edit: false, done: false },
-        { id: 6, text: 'Текст задачи чеклиста - 6', edit: false, done: false },
-        { id: 7, text: 'Текст задачи чеклиста - 7', edit: false, done: false },
-        { id: 8, text: 'Текст задачи чеклиста - 8', edit: false, done: false },
+        { id: 1, text: 'В лесах вылезли первые грибы, и это мы не про второй сезон «Одних из нас». Белорусские грибники хоть и жалуются на сухую погоду, но все равно умудряются набирать полные корзины строчков и то и дело хвастаются сморчковым уловом. Смотрим, у кого там что, и сами точим ножи, пока не вернулись морозы.', edit: false, done: false },
     ];
 
     const [checklistState, setChecklistState] = useState(checklist);
     const [addToggleMode, setAddToggleMode] = useState(false);
-    const [inputValue, setInputValue] = useState();
+    const [inputValue, setInputValue] = useState(null);
+    const [inputPlaceholder, setInputPlaceholder] = useState('Введите текст заметки...');
 
     function toggleModeChecklist(id) {
         setChecklistState(checklistState.map(elem => {
@@ -57,16 +52,27 @@ function Checklist() {
 
     function addChecklistElem(inputText) {
         let copy = [...checklistState];
-        let obj = {
-            id: checklistState[checklistState.length - 1].id + 1,
-            text: inputText,
-            edit: false,
-            done: false,
+        let obj;
+        if (checklistState.length) {
+            obj = {
+                id: checklistState[checklistState.length - 1].id + 1,
+                text: inputText,
+                edit: false,
+                done: false,
+            }
+        } else {
+            obj = {
+                id: 1,
+                text: inputText,
+                edit: false,
+                done: false,
+            }
         }
         copy.push(obj);
         setChecklistState(copy);
         setInputValue('');
         setAddToggleMode(false);
+        setInputPlaceholder('Введите текст заметки...');
     }
 
     const result = checklistState.map(item => {
@@ -85,37 +91,14 @@ function Checklist() {
         />
     })
 
-    // let result = checklistState.map(elem => {
-    //     if (elem.edit === true) {
-    //         return <li key={elem.id} id={elem.id}>
-    //             <input value={elem.text} onChange={(event) => editChecklistElem(elem.id, event)} />
-    //             <button onClick={() => toggleModeChecklist(elem.id)}>Сохранить</button>
-    //         </li>
-    //     } else if (elem.done === true) {
-    //         return <li key={elem.id} id={elem.id}>
-    //             <span style={{ textDecoration: 'line-through' }}>{elem.text}</span>
-    //             <button onClick={() => toggleModeChecklist(elem.id)}>Редактировать</button>
-    //             <button onClick={() => doneChecklistElem(elem.id)}>Выполнено</button>
-    //             <button onClick={() => deliteChecklistElem(elem.id)}>Удалить</button>
-    //         </li>
-    //     } else {
-    //         return <li key={elem.id} id={elem.id}>
-    //             <span>{elem.text}</span>
-    //             <button onClick={() => toggleModeChecklist(elem.id)}>Редактировать</button>
-    //             <button onClick={() => doneChecklistElem(elem.id)}>Выполнено</button>
-    //             <button onClick={() => deliteChecklistElem(elem.id)}>Удалить</button>
-    //         </li>
-    //     }
-    // })
-
     return <>
-        <ul>
+        <ul className={styles.list}>
             {result}
         </ul>
         {addToggleMode
-            ? <><input value={inputValue} onChange={(event) => setInputValue(event.target.value)} />
-                <button onClick={() => addChecklistElem(inputValue)}>Добавить</button></>
-            : <button onClick={() => setAddToggleMode(!addToggleMode)}>Добавить</button>}
+            ? <><input className={styles.input} placeholder={inputPlaceholder} value={inputValue} onChange={(event) => { setInputValue(event.target.value) }} />
+                <button className={styles.btn} onClick={() => { inputValue ? addChecklistElem(inputValue) : setInputPlaceholder('Нужно ввести минимум один символ...') }}>Добавить</button></>
+            : <button className={styles.btn} onClick={() => setAddToggleMode(!addToggleMode)}>Добавить</button>}
     </>
 
 }

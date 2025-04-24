@@ -1,6 +1,8 @@
 import React from "react";
 import DoneItem from "./DoneItem";
 import EditItem from "./EditItem";
+import styles from './Checklistitem.module.css'
+
 
 function ChecklistItem({
     id,
@@ -43,11 +45,11 @@ function ChecklistItem({
         //     <button onClick={() => deliteChecklistElem(id)}>Удалить</button>
         // </li>
     } else {
-        item = <li key={id} id={id}>
-            <span>{text}</span>
-            <button onClick={() => toggleModeChecklist(id)}>Редактировать</button>
-            <button onClick={() => doneChecklistElem(id)}>Выполнено</button>
-            <button onClick={() => deliteChecklistElem(id)}>Удалить</button>
+        item = <li className={styles.item} key={id} id={id}>
+            <span className={styles.text}>{text}</span>
+            <button className={styles.btn} onClick={() => toggleModeChecklist(id)}>Редактировать</button>
+            <button className={styles.btn} onClick={() => doneChecklistElem(id)}>Выполнил</button>
+            <button className={styles.btn} onClick={() => deliteChecklistElem(id)}>Удалить</button>
         </li>
     }
 

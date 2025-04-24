@@ -1,18 +1,19 @@
 import React from "react";
+import styles from './Doneitem.module.css';
 
 function DoneItem({
     id,
     text,
-    toggleModeChecklist,
+    // toggleModeChecklist,
     deliteChecklistElem,
     doneChecklistElem,
 }) {
     return (
-        <li key={id} id={id}>
-            <span style={{ textDecoration: 'line-through' }}>{text}</span>
-            <button onClick={() => toggleModeChecklist(id)}>Редактировать</button>
-            <button onClick={() => doneChecklistElem(id)}>Выполнено</button>
-            <button onClick={() => deliteChecklistElem(id)}>Удалить</button>
+        <li className={styles.item} key={id} id={id}>
+            <span className={styles.text}>{text}</span>
+            {/* <button className={styles.btn} onClick={() => toggleModeChecklist(id)}>Редактировать</button> */}
+            <button className={styles.btn} onClick={() => doneChecklistElem(id)}>Отменить</button>
+            <button className={styles.btn} onClick={() => deliteChecklistElem(id)}>Удалить</button>
         </li>
     )
 }

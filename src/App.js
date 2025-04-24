@@ -1,13 +1,11 @@
-// ⊗jsrtPmPrjChL
-// 1
-
 import React from "react";
 import Checklist from "./components/Checklist";
+import styles from './App.module.css'
 
 function App() {
   return (
-    <div>
-      <h2>Список дел</h2>
+    <div className={styles.container}>
+      <h2 className={styles.title}>Список дел</h2>
       <Checklist />
     </div>
   )

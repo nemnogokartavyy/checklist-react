@@ -1,0 +1,38 @@
+.list {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+    padding: 25px;
+}
+
+.item {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+}
+
+.btn {
+    margin-bottom: 25px;
+    min-width: 150px;
+    min-height: 50px;
+    padding: 10px;
+    border-radius: 10px;
+    font-size: 20px;
+    color: white;
+    background-color: #2664D6;
+}
+
+.btn:hover {
+    background-color: #18428f;
+}
+
+.input {
+    height: 100%;
+    width: 50%;
+    margin-bottom: 25px;
+    padding: 7px;
+    border-radius: 10px;
+    outline: none;
+    border: 5px solid #2664D6;
+}
